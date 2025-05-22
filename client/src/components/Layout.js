@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { AcademicCapIcon, UserIcon, LogoutIcon } from '@heroicons/react/outline';
+import { Link, useNavigate } from 'react-router-dom';
+import { AcademicCapIcon, UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 const Layout = ({ children }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('userRole');
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen flex bg-gray-100 font-sans">
       <aside className="w-64 bg-white shadow-md p-6 flex flex-col justify-between">
@@ -19,13 +26,18 @@ const Layout = ({ children }) => {
             </Link>
           </nav>
         </div>
+
         <div className="pt-8 border-t mt-8">
-          <Link to="/" className="flex items-center space-x-2 text-red-500 hover:text-red-700">
-            <LogoutIcon className="h-5 w-5" />
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 text-red-500 hover:text-red-700"
+          >
+            <ArrowRightOnRectangleIcon className="h-5 w-5" />
             <span>Logout</span>
-          </Link>
+          </button>
         </div>
       </aside>
+
       <main className="flex-1 p-10 bg-gray-50">
         {children}
       </main>

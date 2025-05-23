@@ -54,9 +54,9 @@ function StudentDashboard() {
             className="mt-1 p-2 border rounded w-full"
           >
             <option value="">Choose...</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Business">Business</option>
-            <option value="Arts">Arts</option>
+            <option value="Lehman College">Lehman College</option>
+            <option value="Baruch College">Baruch College</option>
+            <option value="Hunter College">Hunter College</option>
           </select>
         </div>
 

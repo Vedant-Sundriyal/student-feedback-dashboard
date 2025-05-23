@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AcademicCapIcon, UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('userRole');
+    setRole(userRole);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
     navigate('/');
   };
 
@@ -16,14 +23,18 @@ const Layout = ({ children }) => {
         <div>
           <h2 className="text-xl font-bold mb-8 text-blue-600">🎓 Feedback Panel</h2>
           <nav className="flex flex-col space-y-4">
-            <Link to="/student-dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
-              <UserIcon className="h-5 w-5" />
-              <span>Student View</span>
-            </Link>
-            <Link to="/teacher-dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
-              <AcademicCapIcon className="h-5 w-5" />
-              <span>Teacher View</span>
-            </Link>
+            {role === 'student' && (
+              <Link to="/student-dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                <UserIcon className="h-5 w-5" />
+                <span>Student View</span>
+              </Link>
+            )}
+            {role === 'teacher' && (
+              <Link to="/teacher-dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                <AcademicCapIcon className="h-5 w-5" />
+                <span>Teacher View</span>
+              </Link>
+            )}
           </nav>
         </div>
 

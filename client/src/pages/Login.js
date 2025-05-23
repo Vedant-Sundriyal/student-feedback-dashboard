@@ -5,6 +5,7 @@ import { supabase } from '../supabaseClient';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState(''); // ✅ new state
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -16,17 +17,18 @@ function Login() {
       .select('*')
       .eq('username', username)
       .eq('password', password)
+      .eq('role', role) // ✅ validate by role
       .single();
 
     if (error || !data) {
-      setError('Invalid username or password');
+      setError('Invalid username, password, or role');
     } else {
       localStorage.setItem('userRole', data.role);
       localStorage.setItem('userId', data.id);
 
       if (data.role === 'student') {
         navigate('/student-dashboard');
-      } else {
+      } else if (data.role === 'teacher') {
         navigate('/teacher-dashboard');
       }
     }
@@ -36,9 +38,9 @@ function Login() {
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-  
+
         {error && <p className="text-red-500 text-sm">{error}</p>}
-  
+
         <input
           type="text"
           placeholder="Username"
@@ -47,7 +49,7 @@ function Login() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-  
+
         <input
           type="password"
           placeholder="Password"
@@ -56,11 +58,23 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-  
+
+        {/* ✅ Role Dropdown */}
+        <select
+          className="w-full border p-2 rounded mb-4"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        >
+          <option value="">Select Role</option>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
           Log In
         </button>
-  
+
         <p className="text-center mt-4 text-sm">
           Don’t have an account?{' '}
           <a href="/signup" className="text-blue-600 hover:underline">
@@ -70,7 +84,6 @@ function Login() {
       </form>
     </div>
   );
-  
 }
 
 export default Login;

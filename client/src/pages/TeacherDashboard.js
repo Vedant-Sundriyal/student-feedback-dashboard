@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function TeacherDashboard() {
   const [feedbackList, setFeedbackList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // ✅ Protect route based on userRole
+  useEffect(() => {
+    const role = localStorage.getItem('userRole');
+    if (role !== 'teacher') {
+      navigate('/');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchFeedback = async () => {

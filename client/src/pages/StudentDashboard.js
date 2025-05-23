@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function StudentDashboard() {
   const [college, setCollege] = useState('');
   const [professor, setProfessor] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
+
+  const navigate = useNavigate();
+
+  // ✅ Protect this route: allow only if user role is 'student'
+  useEffect(() => {
+    const role = localStorage.getItem('userRole');
+    if (role !== 'student') {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

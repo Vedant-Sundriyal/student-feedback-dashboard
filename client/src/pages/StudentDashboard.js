@@ -6,18 +6,32 @@ import { useNavigate } from 'react-router-dom';
 function StudentDashboard() {
   const [college, setCollege] = useState('');
   const [professor, setProfessor] = useState('');
+  const [professors, setProfessors] = useState([]);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
 
   const navigate = useNavigate();
 
-  // ✅ Protect this route: allow only if user role is 'student'
   useEffect(() => {
     const role = localStorage.getItem('userRole');
     if (role !== 'student') {
       navigate('/');
     }
   }, [navigate]);
+
+  // 👇 Update professor list based on selected college
+  const professorData = {
+    'Lehman College': ['Professor Cameron', 'Professor Brian Murphy', 'Professor Steven'],
+    'Baruch College': ['Professor Williams', 'Professor Chen', 'Professor Torres'],
+    'Hunter College': ['Professor Patel', 'Professor Rivera', 'Professor Green']
+  };
+
+  const handleCollegeChange = (e) => {
+    const selectedCollege = e.target.value;
+    setCollege(selectedCollege);
+    setProfessor('');
+    setProfessors(professorData[selectedCollege] || []);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +48,7 @@ function StudentDashboard() {
       setMessage('');
       setCollege('');
       setProfessor('');
+      setProfessors([]);
     } catch (error) {
       setStatus('Error submitting feedback');
       console.error(error);
@@ -49,7 +64,7 @@ function StudentDashboard() {
           <label className="block text-sm font-medium">Select College</label>
           <select
             value={college}
-            onChange={(e) => setCollege(e.target.value)}
+            onChange={handleCollegeChange}
             required
             className="mt-1 p-2 border rounded w-full"
           >
@@ -60,20 +75,22 @@ function StudentDashboard() {
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Select Professor</label>
-          <select
-            value={professor}
-            onChange={(e) => setProfessor(e.target.value)}
-            required
-            className="mt-1 p-2 border rounded w-full"
-          >
-            <option value="">Choose...</option>
-            <option value="Dr. Smith">Dr. Smith</option>
-            <option value="Prof. Garcia">Prof. Garcia</option>
-            <option value="Ms. Lee">Ms. Lee</option>
-          </select>
-        </div>
+        {professors.length > 0 && (
+          <div>
+            <label className="block text-sm font-medium">Select Professor</label>
+            <select
+              value={professor}
+              onChange={(e) => setProfessor(e.target.value)}
+              required
+              className="mt-1 p-2 border rounded w-full"
+            >
+              <option value="">Choose...</option>
+              {professors.map((prof, index) => (
+                <option key={index} value={prof}>{prof}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium">Your Feedback</label>

@@ -39,6 +39,22 @@ app.post('/feedback', async (req, res) => {
   res.status(201).json(data);
 });
 
+// DELETE /feedback/:id - delete feedback by ID
+app.delete('/feedback/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const { error } = await supabase
+    .from('feedback')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(200).json({ message: 'Feedback deleted successfully' });
+});
+
 app.listen(port, () => {
   console.log(`✅ Express server listening at http://localhost:${port}`);
 });

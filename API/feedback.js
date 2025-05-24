@@ -1,13 +1,13 @@
-const { createClient } = require('@supabase/supabase-js');
+// api/feedback.js
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method === 'GET') {
-    // Fetch all feedback
     const { data, error } = await supabase
       .from('feedback')
       .select('*')
@@ -15,9 +15,7 @@ module.exports = async (req, res) => {
 
     if (error) return res.status(500).json({ error });
     return res.status(200).json(data);
-  } 
-  else if (req.method === 'POST') {
-    // Submit new feedback
+  } else if (req.method === 'POST') {
     const { message, college, professor } = req.body;
 
     if (!message || !college || !professor) {
@@ -30,10 +28,8 @@ module.exports = async (req, res) => {
 
     if (error) return res.status(500).json({ error });
     return res.status(201).json(data);
-  } 
-  else {
-    // Method not allowed
+  } else {
     res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-};
+}

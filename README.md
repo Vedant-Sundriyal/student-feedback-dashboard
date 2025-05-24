@@ -2,7 +2,7 @@ Student Feedback Dashboard:-
 This is a full-stack web application for collecting and viewing student feedback. It has separate dashboards for students and teachers. 
 Students can submit feedback, and teachers can view it. The app uses Supabase for backend services and authentication.
 
-Deployment Link: https://student-feedback-dashboard-lxa5l9v73-vedant-sundriyals-projects.vercel.app
+Deployment Link: https://student-feedback-dashboard-dv3ujo7tz-vedant-sundriyals-projects.vercel.app
 
 Tech Stack:-
 

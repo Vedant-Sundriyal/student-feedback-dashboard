@@ -17,7 +17,7 @@ function TeacherDashboard() {
 
   const fetchFeedback = async () => {
     try {
-      const response = await axios.get('/api/feedback'); // ✅ updated
+      const response = await axios.get('https://student-feedback-dashboard.onrender.com/feedback');
       setFeedbackList(response.data);
     } catch (error) {
       console.error('Error fetching feedback:', error);
@@ -32,7 +32,7 @@ function TeacherDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/feedback?id=${id}`); // ✅ updated
+      await axios.delete(`https://student-feedback-dashboard.onrender.comfeedback?id=${id}`);
       setFeedbackList((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Error deleting feedback:', error);

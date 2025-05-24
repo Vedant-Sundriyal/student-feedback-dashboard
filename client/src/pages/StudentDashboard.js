@@ -37,7 +37,7 @@ function StudentDashboard() {
     setStatus('Submitting...');
 
     try {
-      await axios.post('/api/feedback', {
+      await axios.post('https://student-feedback-dashboard.onrender.com/feedback', {
         message,
         college,
         professor,

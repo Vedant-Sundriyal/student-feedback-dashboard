@@ -27,18 +27,19 @@ Clone the repository:
 1. git clone https://github.com/Vedant-Sundriyal/student-feedback-dashboard.git
 2. cd student-feedback-dashboard/client
 
-Install dependencies:
-1.npm install
-
 Create a .env file in the client folder and add your Supabase keys:
 
-1.VITE_SUPABASE_URL=your_supabase_url 
-2.VITE_SUPABASE_ANON_KEY=your_anon_key 
+1.VITE_SUPABASE_URL=your_supabase_url (https://gbynkkdzyoigiihnbucp.supabase.co)
+2.VITE_SUPABASE_ANON_KEY=your_anon_key (eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieW5ra2R6eW9pZ2lpaG5idWNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4NTMzMzAsImV4cCI6MjA2MzQyOTMzMH0.jvEM3S0qF49GdMKWoO8ZXId3U45IrxoSKVgviW-xE8o)
 
-Start the development server:
-1.npm start
+Start the frontend:-
+In you terminal:-
+cd client->npm install->npm start
 
 The app will run at http://localhost:3000
+
+Open a new terminal and start the backend:-
+cd server->npm install->npm start
 
 Reflections:-
 

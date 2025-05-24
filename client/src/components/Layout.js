@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AcademicCapIcon, UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/solid'
+import { AcademicCapIcon, UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/outline'
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();

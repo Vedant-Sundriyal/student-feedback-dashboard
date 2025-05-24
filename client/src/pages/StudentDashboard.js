@@ -19,7 +19,6 @@ function StudentDashboard() {
     }
   }, [navigate]);
 
-  // 👇 Update professor list based on selected college
   const professorData = {
     'Lehman College': ['Professor Cameron', 'Professor Brian Murphy', 'Professor Steven'],
     'Baruch College': ['Professor Williams', 'Professor Chen', 'Professor Torres'],
@@ -38,7 +37,7 @@ function StudentDashboard() {
     setStatus('Submitting...');
 
     try {
-      await axios.post('http://localhost:5001/feedback', {
+      await axios.post('/api/feedback', {
         message,
         college,
         professor,

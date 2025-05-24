@@ -8,7 +8,6 @@ function TeacherDashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // ✅ Protect route based on userRole
   useEffect(() => {
     const role = localStorage.getItem('userRole');
     if (role !== 'teacher') {
@@ -18,7 +17,7 @@ function TeacherDashboard() {
 
   const fetchFeedback = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/feedback');
+      const response = await axios.get('/api/feedback'); // ✅ updated
       setFeedbackList(response.data);
     } catch (error) {
       console.error('Error fetching feedback:', error);
@@ -33,7 +32,7 @@ function TeacherDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/feedback/${id}`);
+      await axios.delete(`/api/feedback?id=${id}`); // ✅ updated
       setFeedbackList((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Error deleting feedback:', error);

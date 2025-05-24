@@ -15,6 +15,7 @@ export default async function handler(req, res) {
 
     if (error) return res.status(500).json({ error });
     return res.status(200).json(data);
+
   } else if (req.method === 'POST') {
     const { message, college, professor } = req.body;
 
@@ -28,8 +29,24 @@ export default async function handler(req, res) {
 
     if (error) return res.status(500).json({ error });
     return res.status(201).json(data);
+
+  } else if (req.method === 'DELETE') {
+    const { id } = req.query;
+
+    if (!id) {
+      return res.status(400).json({ error: 'Missing id parameter' });
+    }
+
+    const { error } = await supabase
+      .from('feedback')
+      .delete()
+      .eq('id', id);
+
+    if (error) return res.status(500).json({ error });
+    return res.status(200).json({ message: 'Feedback deleted successfully' });
+
   } else {
-    res.setHeader('Allow', ['GET', 'POST']);
+    res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
